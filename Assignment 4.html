@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #todo-container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      width: 300px;
+      margin: auto;
+    }
+
+    #todo-header {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    #todo-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .todo-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .todo-item:last-child {
+      border-bottom: none;
+    }
+
+    .delete-btn {
+      background-color: #f44336;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    #add-todo {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-top: 1px solid #eee;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="todo-container">
+    <div id="todo-header">
+      <h2>To-Do List</h2>
+    </div>
+    <ul id="todo-list"></ul>
+    <input type="text" id="add-todo" placeholder="Add a new task...">
+  </div>
+
+  <script>
+    const todoList = document.getElementById('todo-list');
+    const addTodoInput = document.getElementById('add-todo');
+
+    function addTodo() {
+      const todoText = addTodoInput.value;
+      if (todoText.trim() !== '') {
+        const todoItem = document.createElement('li');
+        todoItem.className = 'todo-item';
+        todoItem.innerHTML = `
+          <span>${todoText}</span>
+          <button class="delete-btn" onclick="deleteTodo(this)">Delete</button>
+        `;
+        todoList.appendChild(todoItem);
+        addTodoInput.value = '';
+      }
+    }
+
+    function deleteTodo(button) {
+      const listItem = button.parentNode;
+      todoList.removeChild(listItem);
+    }
+
+    addTodoInput.addEventListener('keyup', function(event) {
+      if (event.key === 'Enter') {
+        addTodo();
+      }
+    });
+  </script>
+</body>
+</html>
